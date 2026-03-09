@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Planner</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div id="login-screen" class="full-page-center">
+        <div class="login-card">
+            <div class="login-visual">
+                <h1>Welcome! ✨</h1>
+                <p>Your personalized study journey starts here.</p>
+            </div>
+            <div class="login-form">
+                <h2>User Login</h2>
+                <input type="email" id="login-email" placeholder="Email Address">
+                <input type="password" id="login-password" placeholder="Password">
+                <div class="row"><input type="checkbox"> Remember me</div>
+                <button onclick="loginUser()" class="login-btn">LOGIN</button>
+                <p style="margin-top:15px; font-size: 0.8rem; color: #666;">
+                    New user? <a href="#" onclick="toggleAuth()" style="color: #6366f1; font-weight: bold;">Create
+                        Account</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="setup-screen" class="full-page-center hidden">
+        <div class="glass-card">
+            <h1>Setup your profile 📚</h1>
+            <p>Select your path to continue</p>
+
+            <input type="email" id="signup-email" placeholder="Email for Account" style="margin-bottom: 10px;">
+            <input type="password" id="signup-password" placeholder="Create Password" style="margin-bottom: 10px;">
+
+            <select id="signup-course">
+                <option value="">Select Course</option>
+                <option value="BSc Computer Science">BSc Computer Science</option>
+                <option value="BCA">BCA</option>
+                <option value="BSc Biotechnology">BSc Biotechnology</option>
+                <option value="BA LLB">BA LLB</option>
+                <option value="BSc Home Science">BSc Home Science</option>
+            </select>
+
+            <select id="signup-semester">
+                <option value="">Select Semester</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+            </select>
+
+            <button onclick="signUpUser()" class="generate-btn">Create & Enter</button>
+            <p style="margin-top:15px;"><a href="#" onclick="toggleAuth()">Back to Login</a></p>
+        </div>
+    </div>
+
+    <div id="dashboard-screen" class="container hidden">
+        <nav class="sidebar">
+            <div class="logo">
+                <h2>Study Plan</h2>
+            </div>
+            <ul>
+                <li class="active" onclick="showSection('dashboard-section')">📊 Dashboard</li>
+                <li onclick="showSection('syllabus-section')">📚 View Syllabus</li>
+                <li onclick="showSection('notes-section')">📝 Skim through Notes</li>
+                <li onclick="showSection('lectures-section')">📺 Binge Lectures</li>
+                <li onclick="showSection('pyq-section')">📄 PYQs</li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div id="dashboard-section" class="tab-content">
+                <header>
+                    <h1 id="welcome-text">Happy Learning! ✨</h1>
+                    <button class="add-btn" onclick="toggleTaskForm()">+ Add Topic</button>
+                </header>
+
+                <div class="stats-grid">
+                    <div class="card purple">
+                        <h3 id="stat-total">0</h3>
+                        <p>Total Topics</p>
+                    </div>
+                    <div class="card pink">
+                        <h3 id="stat-completed">0</h3>
+                        <p>Completed</p>
+                    </div>
+                    <div class="card green">
+                        <h3 id="stat-rate">0%</h3>
+                        <p>Success Rate</p>
+                    </div>
+                </div>
+
+                <div class="glass-card-no-center"
+                    style="margin-top: 25px; padding: 20px; background: white; border-radius: 15px;">
+                    <h3>Quick Progress Tracker</h3>
+                    <ul id="topic-list" style="list-style: none; margin-top: 15px;"></ul>
+                </div>
+            </div>
+
+            <div id="syllabus-section" class="tab-content hidden">
+                <h1>Syllabus Planner 📚</h1>
+
+                <div class="glass-card-no-center"
+                    style="margin-top:20px; background:white; padding:25px; border-radius:15px;">
+                    <h3>Generate Your Roadmap</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Select a subject to break down your study schedule.</p>
+
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <select id="subject-select"
+                            style="flex: 2; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+                            <option>Select Subject</option>
+                            <option value="os">Operating System</option>
+                            <option value="ds">Data Structures & Algorithms</option>
+                            <option value="dbms">DBMS</option>
+                            <option value="cont">Computer oriented Numeric Techniques</option>
+                            <option value="java">Java</option>
+                            <option value="cn">Computer Networks</option>
+                            <option value="sad">System Analysis & Design</option>
+                            <option value="co">Computer Organisations</option>
+                            <option value="de">Digital Electronics</option>
+                            <option value="math">Applied Mathematics</option>
+                        </select>
+                        <button class="add-btn" onclick="generateRoadmap()">Generate Plan</button>
+                    </div>
+
+                    <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
+
+                    <div id="roadmap-container">
+                        <p style="text-align: center; color: #999; font-style: italic;">Select a subject to see your
+                            weekly goals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="notes-section" class="tab-content hidden">
+                <h1>Subject Wise Notes📝</h1>
+                <div class="glass-card-no-center"
+                    style="margin-top:20px; background:white; padding:25px; border-radius:15px;">
+                    <h3>Upload New Study Material</h3>
+                    <div style="display: flex; gap: 10px; margin: 15px 0; align-items: center;">
+                        <input type="text" id="note-subject" placeholder="Subject Name (e.g. Operating Systems)"
+                            style="flex: 2; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                        <input type="file" id="note-file" style="flex: 2;">
+                        <button class="add-btn" onclick="addNoteLink()">Add to Vault</button>
+                    </div>
+
+                    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+                    <h3>Your Saved Notes</h3>
+                    <ul id="notes-list" style="list-style: none; margin-top: 15px;">
+                        <p id="no-notes" style="color: #999; font-style: italic;">No notes uploaded yet. Start building
+                            your library!</p>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="lectures-section" class="tab-content hidden">
+                <h1>Binge Lectures 📺</h1>
+                <div class="glass-card-no-center"
+                    style="margin-top:20px; background:white; padding:25px; border-radius:15px;">
+                    <h3>Add a Study Playlist</h3>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Paste YouTube playlist links for
+                        classmates or yourself.</p>
+
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <input type="text" id="playlist-title" placeholder="Subject/Topic (e.g. DBMS Playlist)"
+                            style="flex: 2; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+                        <input type="text" id="playlist-url" placeholder="Paste YouTube Link"
+                            style="flex: 3; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+                        <button class="add-btn" onclick="addPlaylist()">Save Link</button>
+                    </div>
+
+                    <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
+
+                    <div id="playlist-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    </div>
+                </div>
+            </div>
+
+            <div id="pyq-section" class="tab-content hidden">
+                <h1>Previous Year Questions 📄</h1>
+                <div class="glass-card-no-center"
+                    style="margin-top:20px; background:white; padding:20px; border-radius:15px;">
+                    <h3>Question Paper Drive</h3>
+                    <input type="text" placeholder="Paste Google Drive Link..."
+                        style="width: 80%; padding: 10px; margin: 15px 0;">
+                    <button class="add-btn">Save Link</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
